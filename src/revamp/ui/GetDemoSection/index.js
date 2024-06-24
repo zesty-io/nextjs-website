@@ -118,7 +118,7 @@ const GetDemoSection = ({
           })}
         >
           <Stack
-            spacing={4}
+            spacing={10}
             mb={{ xs: 8, lg: 0 }}
             width={{ lg: '456px', desktopWide: '548px' }}
           >
@@ -138,13 +138,13 @@ const GetDemoSection = ({
                     p: {
                       component: Typography,
                       props: {
-                        mt: 1,
+                        mt: 2,
                         component: 'p',
                         variant: 'h6',
                         whiteSpace: 'pre-line',
                         color: 'grey.300',
                         fontSize: '18px',
-                        lineHeight: '28px',
+                        lineHeight: '24px',
                       },
                     },
                   },
@@ -282,6 +282,9 @@ const GetDemoSection = ({
                 )}
               </Formik>
             </Stack>
+            <Box sx={{ mt: 4 }}>
+              <G2Awards alignLeft />
+            </Box>
           </Stack>
         </Stack>
       </Stack>
@@ -294,7 +297,7 @@ export default GetDemoSection;
 function Testimonial({ review }) {
   return (
     <Stack gap={2}>
-      <Typography color={'white'} fontStyle={'italic'}>
+      <Typography color={'white'} fontStyle={'italic'} fontSize={18}>
         {review?.review}
       </Typography>
       <Stack direction={'row'} gap={2} sx={{ alignItems: 'center' }}>
@@ -320,9 +323,6 @@ function TrustLogos() {
   return (
     <Stack>
       <Logos alignLeft />
-      <Box sx={{ mt: 4 }}>
-        <G2Awards alignLeft />
-      </Box>
     </Stack>
   );
 }
