@@ -46,7 +46,7 @@ export function ZestyView(props) {
         props.content.meta.layout?.json['layout:root:column:0']?.children,
       ) === '{}'
     ) {
-      return true;
+      return false;
     }
 
     // return only true if the layout is active and has components

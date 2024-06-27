@@ -191,6 +191,7 @@ const Main = ({
                 isAuthenticated={isLoggedIn}
                 userInfo={userInfo?.data}
                 loading={loading}
+                cta={'Contact Sales'}
               />
             </Stack>
           )}
