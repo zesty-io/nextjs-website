@@ -90,6 +90,26 @@ function Article({ content }) {
   let regexPattern = /\[CALL TO ACTION (\d+)\]/g;
 
   useEffect(() => {
+    const removeSpansInHeadings = (html) => {
+      let tempDiv = document.createElement('div');
+      tempDiv.innerHTML = html;
+
+      let headings = tempDiv.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+      headings.forEach((heading) => {
+        let spans = heading.querySelectorAll('span');
+        spans.forEach((span) => {
+          span.replaceWith(...span.childNodes);
+        });
+      });
+
+      return tempDiv.innerHTML;
+    };
+
+    setNewContent(removeSpansInHeadings(newContent));
+  }, [newContent]);
+
+  useEffect(() => {
     const validateWysiwyg = () => {
       if (newContent?.includes('Error hydrating')) {
         cleanOutErrorHydrating = content?.article.replaceAll(
@@ -209,7 +229,10 @@ function Article({ content }) {
     ? `:is(span, p, h1, h2, h3, h4, h5, h6) :is(img) {
   width: auto;
   max-width: 100%;
-}`
+  }
+  :h1 span, :h2 span {
+    color: black;
+  }`
     : ``;
 
   // Match CTA component sort order id from array to return its props
