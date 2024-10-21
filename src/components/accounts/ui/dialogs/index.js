@@ -17,6 +17,9 @@ export const SuccessMsg = ({
     title,
     timer: 2500,
     confirmButtonColor: light.primary.main,
+    customClass: {
+      container: 'swal-zindex-override',
+    },
   }).then(() => action());
 };
 
@@ -36,6 +39,9 @@ export const ErrorMsg = ({
     confirmButtonColor: light.zesty.zestyRose,
     timer,
     timerProgressBar,
+    customClass: {
+      container: 'swal-zindex-override',
+    },
   });
 };
 
@@ -85,6 +91,9 @@ export const DeleteMsg = ({
     confirmButtonText: 'Yes',
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
+    customClass: {
+      container: 'swal-zindex-override',
+    },
   }).then((result) => {
     if (result.isConfirmed) {
       action();
