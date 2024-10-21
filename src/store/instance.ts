@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import { ContentItem, ContentModel, Language } from './types';
 import { getZestyAPI } from 'store';
-import { ErrorMsg } from 'components/accounts';
 
 const ZestyAPI = getZestyAPI();
 
@@ -19,53 +18,41 @@ type InstanceAction = {
 export const useInstance = create<InstanceState & InstanceAction>((set) => ({
   instanceModels: [],
   getInstanceModels: async () => {
-    try {
-      const response = await ZestyAPI.getModels();
+    const response = await ZestyAPI.getModels();
 
-      if (response.error) {
-        throw new Error(response.error);
-      } else {
-        set({
-          instanceModels: response.data,
-        });
-      }
-    } catch (err) {
-      ErrorMsg({ text: 'Failed to fetch content models' });
-      console.error('getInstanceModels error: ', err);
+    if (response.error) {
+      console.error('getInstanceModels error: ', response.error);
+      throw new Error(response.error);
+    } else {
+      set({
+        instanceModels: response.data,
+      });
     }
   },
 
   instanceContentItems: [],
   getInstanceContentItems: async () => {
-    try {
-      const response = await ZestyAPI.searchItems();
+    const response = await ZestyAPI.searchItems();
 
-      if (response.error) {
-        throw new Error(response.error);
-      } else {
-        set({
-          instanceContentItems: response.data,
-        });
-      }
-    } catch (err) {
-      ErrorMsg({ text: 'Failed to fetch content items' });
-      console.error('getInstanceContentItems error: ', err);
+    if (response.error) {
+      console.error('getInstanceContentItems error: ', response.error);
+      throw new Error(response.error);
+    } else {
+      set({
+        instanceContentItems: response.data,
+      });
     }
   },
 
   languages: [],
   getLanguages: async (type) => {
-    try {
-      const response = await ZestyAPI.getLocales(type);
+    const response = await ZestyAPI.getLocales(type);
 
-      if (response.error) {
-        throw new Error(response.error);
-      } else {
-        set({ languages: response.data });
-      }
-    } catch (err) {
-      ErrorMsg({ text: 'Failed to fetch instance languages' });
-      console.error('getLanguages error: ', err);
+    if (response.error) {
+      console.error('getLanguages error: ', response.error);
+      throw new Error(response.error);
+    } else {
+      set({ languages: response.data });
     }
   },
 }));
