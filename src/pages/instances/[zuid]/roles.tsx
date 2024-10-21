@@ -6,6 +6,7 @@ import { useRoles } from 'store/roles';
 import { useInstance } from 'store/instance';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import { Roles } from 'views/accounts';
+import { ErrorMsg } from 'components/accounts';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
@@ -41,7 +42,9 @@ export default function RolesPage() {
         getInstanceModels(),
         getInstanceContentItems(),
         getLanguages('all'),
-      ]).finally(() => setIsInitializingData(false));
+      ])
+        .catch(() => ErrorMsg({ title: 'Failed to fetch page data' }))
+        .finally(() => setIsInitializingData(false));
     }
   }, [router.isReady]);
 

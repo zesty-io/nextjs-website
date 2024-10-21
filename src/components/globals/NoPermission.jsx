@@ -15,7 +15,7 @@ import shield from '../../../public/assets/images/shield.svg';
 
 export const NoPermission = ({ users }) => {
   const ownersAndAdmins = useMemo(() => {
-    if (!users && !users.length) return [];
+    if (!users && !users?.length) return [];
 
     const owners = users
       .filter((user) => user.role?.name?.toLowerCase() === 'owner')

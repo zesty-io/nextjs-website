@@ -34,6 +34,7 @@ import { useRouter } from 'next/router';
 
 import { useZestyStore } from 'store';
 import { useRoles } from 'store/roles';
+import { ErrorMsg } from '../ui';
 
 export const BASE_ROLE_PERMISSIONS = Object.freeze({
   '31-71cfc74-0wn3r': {
@@ -332,11 +333,14 @@ export const CreateCustomRoleDialog = ({
       instanceZUID,
     })
       .then((response: any) => {
-        getRoles(instanceZUID).then(() => {
-          onRoleCreated(response?.ZUID);
-          onClose?.();
-        });
+        getRoles(instanceZUID)
+          .then(() => {
+            onRoleCreated(response?.ZUID);
+            onClose?.();
+          })
+          .catch(() => ErrorMsg({ title: 'Failed to fetch roles' }));
       })
+      .catch(() => ErrorMsg({ title: 'Failed to create role' }))
       .finally(() => {
         setIsCreatingRole(false);
       });
@@ -453,8 +457,8 @@ export const CreateCustomRoleDialog = ({
           <Stack direction="row">
             {Object.entries(
               BASE_ROLE_PERMISSIONS[fieldData.systemRoleZUID]?.actions || {},
-            )?.map(([name, permission]) => (
-              <Stack width={80} gap={0.5}>
+            )?.map(([name, permission], index) => (
+              <Stack width={80} gap={0.5} key={index}>
                 <Typography
                   variant="body2"
                   fontWeight={600}

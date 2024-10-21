@@ -127,7 +127,10 @@ export const EditCustomRoleDialog = ({
     if (!!roleData?.granularRoleZUID) {
       // If a granularRoleZUID is already attached to the role, we can just
       // do an update to add the new granular roles
-      return updateGranularRole({ roleZUID: ZUID, granularRoles: payload });
+      return updateGranularRole({
+        roleZUID: ZUID,
+        granularRoles: payload,
+      }).catch(() => ErrorMsg({ title: 'Failed to update granular role' }));
     } else {
       // If the role doesn't have any granularRoleZUID attached, we need to create a
       // granular role first
@@ -137,17 +140,21 @@ export const EditCustomRoleDialog = ({
         return createGranularRole({
           roleZUID: ZUID,
           data: granularRoleInitiator,
-        }).then(() => {
-          // If there are any other granular roles aside from the one we used to
-          // initiate a new granular role zuid, we then use the update endpoint to
-          // add those in as well
-          if (payload?.length > 1) {
-            return updateGranularRole({
-              roleZUID: ZUID,
-              granularRoles: payload,
-            });
-          }
-        });
+        })
+          .then(() => {
+            // If there are any other granular roles aside from the one we used to
+            // initiate a new granular role zuid, we then use the update endpoint to
+            // add those in as well
+            if (payload?.length > 1) {
+              return updateGranularRole({
+                roleZUID: ZUID,
+                granularRoles: payload,
+              }).catch(() =>
+                ErrorMsg({ title: 'Failed to update granular role' }),
+              );
+            }
+          })
+          .catch(() => ErrorMsg({ title: 'Failed to create granular role' }));
       }
     }
   };
@@ -167,13 +174,14 @@ export const EditCustomRoleDialog = ({
         deleteGranularRole({
           roleZUID: ZUID,
           resourceZUIDs: resourceZUIDsToDelete,
-        }),
+        }).catch(() => ErrorMsg({ title: 'Failed to delete granular role' })),
       ]),
       // Perform all granular role updates
       saveGranularRoleUpdates(),
       // TODO: Add api call to manager users
     ])
       .then((responses) => console.log(responses))
+      .catch(() => ErrorMsg({ title: 'Failed to update role' }))
       .finally(() => {
         getRoles(String(instanceZUID));
         getPermissions(ZUID);
