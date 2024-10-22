@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import {
   Typography,
   Stack,
@@ -12,10 +13,10 @@ import { Close, InfoRounded, Check } from '@mui/icons-material';
 import { useZestyStore } from 'store';
 import {
   BASE_ROLE_PERMISSIONS,
-  BASE_ROLE_OPTIONS,
   PRODUCT_DETAILS,
 } from '../../CreateCustomRoleDialog';
 import { RoleDetails } from '../index';
+import { useRoles } from 'store/roles';
 
 type DetailsProps = {
   data: RoleDetails;
@@ -23,6 +24,16 @@ type DetailsProps = {
 };
 export const Details = ({ data, onUpdateData }: DetailsProps) => {
   const { instance } = useZestyStore((state) => state);
+  const { baseRoles } = useRoles((state) => state);
+
+  const baseRoleOptions = useMemo(() => {
+    if (!baseRoles?.length) return [];
+
+    return baseRoles?.map((role) => ({
+      label: role.name,
+      value: role.systemRoleZUID,
+    }));
+  }, [baseRoles]);
 
   return (
     <Stack gap={2.5}>
@@ -65,11 +76,11 @@ export const Details = ({ data, onUpdateData }: DetailsProps) => {
         </Stack>
         <Autocomplete
           disableClearable
-          value={BASE_ROLE_OPTIONS.find(
+          value={baseRoleOptions.find(
             (role) => role.value === data?.systemRoleZUID,
           )}
           onChange={(_, value) => onUpdateData({ systemRoleZUID: value.value })}
-          options={BASE_ROLE_OPTIONS}
+          options={baseRoleOptions}
           renderInput={(params) => <TextField {...params} />}
         />
       </Box>

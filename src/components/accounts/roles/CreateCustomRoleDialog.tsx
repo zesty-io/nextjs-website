@@ -1,4 +1,4 @@
-import { useReducer, useState } from 'react';
+import { useReducer, useState, useMemo } from 'react';
 import {
   Typography,
   Avatar,
@@ -252,40 +252,6 @@ export const PRODUCT_DETAILS = Object.freeze({
     icon: <SettingsRounded color="action" sx={{ fontSize: 16 }} />,
   },
 });
-export const BASE_ROLE_OPTIONS = Object.freeze([
-  {
-    value: '31-71cfc74-0wn3r',
-    label: 'Owner',
-  },
-  {
-    value: '31-71cfc74-4dm13',
-    label: 'Admin',
-  },
-  {
-    value: '31-71cfc74-4cc4dm13',
-    label: 'Access Admin',
-  },
-  {
-    value: '31-71cfc74-d3v3l0p3r',
-    label: 'Developer',
-  },
-  {
-    value: '31-71cfc74-d3vc0n',
-    label: 'Developer Contributor',
-  },
-  {
-    value: '31-71cfc74-p0bl1shr',
-    label: 'Publisher',
-  },
-  {
-    value: '31-71cfc74-s30',
-    label: 'SEO',
-  },
-  {
-    value: '31-71cfc74-c0ntr1b0t0r',
-    label: 'Contributor',
-  },
-]);
 
 export type RoleDetails = {
   name: string;
@@ -303,7 +269,7 @@ export const CreateCustomRoleDialog = ({
 }: CreateCustomRoleDialogProps) => {
   const router = useRouter();
   const { instance } = useZestyStore((state) => state);
-  const { createRole, getRoles } = useRoles((state) => state);
+  const { createRole, getRoles, baseRoles } = useRoles((state) => state);
   const [isCreatingRole, setIsCreatingRole] = useState(false);
 
   const [fieldData, updateFieldData] = useReducer(
@@ -319,6 +285,15 @@ export const CreateCustomRoleDialog = ({
       systemRoleZUID: '31-71cfc74-4dm13',
     },
   );
+
+  const baseRoleOptions = useMemo(() => {
+    if (!baseRoles?.length) return [];
+
+    return baseRoles?.map((role) => ({
+      label: role.name,
+      value: role.systemRoleZUID,
+    }));
+  }, [baseRoles]);
 
   const handleCreateRole = () => {
     const instanceZUID = String(router?.query?.zuid);
@@ -439,13 +414,13 @@ export const CreateCustomRoleDialog = ({
           </Stack>
           <Autocomplete
             disableClearable
-            value={BASE_ROLE_OPTIONS.find(
+            value={baseRoleOptions.find(
               (role) => role.value === fieldData.systemRoleZUID,
             )}
             onChange={(_, value) =>
               updateFieldData({ systemRoleZUID: value.value })
             }
-            options={BASE_ROLE_OPTIONS}
+            options={baseRoleOptions}
             renderInput={(params) => <TextField {...params} />}
             disabled={isCreatingRole}
           />
