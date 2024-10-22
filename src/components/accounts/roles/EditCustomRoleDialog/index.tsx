@@ -49,11 +49,14 @@ export const EditCustomRoleDialog = ({
   const {
     getRoles,
     customRoles,
+    baseRoles,
     updateGranularRole,
     updateRole,
     createGranularRole,
     deleteGranularRole,
     usersWithRoles,
+    updateUserRole,
+    getUsersWithRoles,
   } = useRoles((state) => state);
   const [activeTab, setActiveTab] = useState<
     'details' | 'permissions' | 'users'
@@ -78,6 +81,10 @@ export const EditCustomRoleDialog = ({
   const [resourceZUIDsToDelete, setResourceZUIDsToDelete] = useState<string[]>(
     [],
   );
+
+  useEffect(() => {
+    setUserEmails(roleUsers?.map((user) => user.email) || []);
+  }, [roleUsers]);
 
   const [detailsData, updateDetailsData] = useReducer(
     (state: RoleDetails, data: Partial<RoleDetails>) => {
@@ -130,7 +137,7 @@ export const EditCustomRoleDialog = ({
       return updateGranularRole({
         roleZUID: ZUID,
         granularRoles: payload,
-      }).catch(() => ErrorMsg({ title: 'Failed to update granular role' }));
+      });
     } else {
       // If the role doesn't have any granularRoleZUID attached, we need to create a
       // granular role first
@@ -140,38 +147,83 @@ export const EditCustomRoleDialog = ({
         return createGranularRole({
           roleZUID: ZUID,
           data: granularRoleInitiator,
-        })
-          .then(() => {
-            // If there are any other granular roles aside from the one we used to
-            // initiate a new granular role zuid, we then use the update endpoint to
-            // add those in as well
-            if (payload?.length > 1) {
-              return updateGranularRole({
-                roleZUID: ZUID,
-                granularRoles: payload,
-              }).catch(() =>
-                ErrorMsg({ title: 'Failed to update granular role' }),
-              );
-            }
-          })
-          .catch(() => ErrorMsg({ title: 'Failed to create granular role' }));
+        }).then(() => {
+          // If there are any other granular roles aside from the one we used to
+          // initiate a new granular role zuid, we then use the update endpoint to
+          // add those in as well
+          if (payload?.length > 1) {
+            return updateGranularRole({
+              roleZUID: ZUID,
+              granularRoles: payload,
+            });
+          }
+        });
       }
     }
   };
 
-  const updateUserRole = () => {
-    const usersToReassign = roleUsers?.filter(
-      (user) => !userEmails?.includes(user.email),
+  const saveUsersUpdate = () => {
+    const baseRoleZUID = baseRoles?.find(
+      (role) => role.systemRoleZUID === roleData?.systemRoleZUID,
+    )?.ZUID;
+    const alreadyExistingUsers: string[] = roleUsers?.reduce(
+      (prev, curr) => [...prev, curr.email],
+      [],
+    );
+    const usersToRemove = alreadyExistingUsers?.filter(
+      (email) => !userEmails?.includes(email),
+    );
+    const usersToAdd = userEmails?.filter(
+      (email) => !alreadyExistingUsers.includes(email),
     );
 
-    console.log(usersToReassign);
+    // TODO: Do something with emails that are not yet instance members
+    const users = usersWithRoles?.reduce(
+      (prev, curr) => {
+        if (usersToAdd?.includes(curr.email)) {
+          return {
+            ...prev,
+            toAdd: [
+              ...prev.toAdd,
+              {
+                userZUID: curr.ZUID,
+                oldRoleZUID: curr.role?.ZUID,
+                newRoleZUID: ZUID,
+              },
+            ],
+          };
+        }
+
+        if (usersToRemove?.includes(curr.email)) {
+          return {
+            ...prev,
+            toRemove: [
+              ...prev.toRemove,
+              {
+                userZUID: curr.ZUID,
+                oldRoleZUID: curr.role?.ZUID,
+                newRoleZUID: baseRoleZUID,
+              },
+            ],
+          };
+        }
+
+        return prev;
+      },
+      {
+        toAdd: [],
+        toRemove: [],
+      },
+    );
+
+    return Promise.all([
+      updateUserRole(users.toAdd),
+      updateUserRole(users.toRemove),
+    ]);
   };
 
   const handleSave = () => {
     setIsSaving(true);
-
-    // TODO: Add logic
-    updateUserRole();
 
     Promise.all([
       // Update role details
@@ -186,15 +238,17 @@ export const EditCustomRoleDialog = ({
         deleteGranularRole({
           roleZUID: ZUID,
           resourceZUIDs: resourceZUIDsToDelete,
-        }).catch(() => ErrorMsg({ title: 'Failed to delete granular role' })),
+        }),
       ]),
       // Perform all granular role updates
       saveGranularRoleUpdates(),
-      // TODO: Add api call to manager users
+      // Save all user updates
+      saveUsersUpdate(),
     ])
       .then((responses) => console.log(responses))
       .catch(() => ErrorMsg({ title: 'Failed to update role' }))
       .finally(() => {
+        getUsersWithRoles(String(instanceZUID));
         getRoles(String(instanceZUID));
         getPermissions(ZUID);
         setIsSaving(false);

@@ -14,6 +14,9 @@ type RolesState = {
 };
 type RolesAction = {
   getUsersWithRoles: (instanceZUID: string) => Promise<void>;
+  updateUserRole: (
+    data: { userZUID: string; oldRoleZUID: string; newRoleZUID: string }[],
+  ) => Promise<void>;
   getRoles: (instanceZUID: string) => Promise<void>;
   createRole: (data: RoleDetails & { instanceZUID: string }) => Promise<void>;
   updateRole: ({
@@ -62,6 +65,20 @@ export const useRoles = create<RolesState & RolesAction>((set) => ({
       set({ usersWithRoles: response.data });
       return response.data;
     }
+  },
+  updateUserRole: async (data) => {
+    if (!data?.length) return;
+
+    Promise.all([
+      data?.forEach(({ userZUID, oldRoleZUID, newRoleZUID }) =>
+        ZestyAPI.updateUserRole(userZUID, oldRoleZUID, newRoleZUID),
+      ),
+    ])
+      .then((response) => response)
+      .catch((error) => {
+        console.error('updateUserRole error: ', error);
+        throw new Error(error);
+      });
   },
 
   baseRoles: [],
