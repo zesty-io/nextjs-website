@@ -43,7 +43,9 @@ export const Users = ({ userEmails, onUpdateUserEmails }: UsersProps) => {
             sx={{
               '.MuiOutlinedInput-root ': {
                 alignItems: 'baseline',
+                alignContent: 'baseline',
                 minHeight: 106,
+                height: '100%',
               },
             }}
             ref={autocompleteRef}
@@ -65,7 +67,12 @@ export const Users = ({ userEmails, onUpdateUserEmails }: UsersProps) => {
                   if (inputValue.trim().match(emailAddressRegexp)) {
                     event.preventDefault();
                     onUpdateUserEmails(
-                      Array.from(new Set([...userEmails, inputValue.trim()])),
+                      Array.from(
+                        new Set([
+                          ...userEmails,
+                          inputValue?.toLowerCase()?.trim(),
+                        ]),
+                      ),
                     );
                     setInputValue('');
                   } else {
