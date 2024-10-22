@@ -20,10 +20,12 @@ type RolesAction = {
     roleZUID,
     name,
     description,
+    systemRoleZUID,
   }: {
     roleZUID: string;
     name: string;
     description: string;
+    systemRoleZUID: string;
   }) => Promise<void>;
   createGranularRole: ({
     roleZUID,
@@ -106,10 +108,14 @@ export const useRoles = create<RolesState & RolesAction>((set) => ({
       return res.data;
     }
   },
-  updateRole: async ({ roleZUID, name, description }) => {
+  updateRole: async ({ roleZUID, name, description, systemRoleZUID }) => {
     if (!roleZUID || !name) return;
 
-    const res = await ZestyAPI.updateRole(roleZUID, { name, description });
+    const res = await ZestyAPI.updateRole(roleZUID, {
+      name,
+      description,
+      systemRoleZUID,
+    });
 
     if (res.error) {
       console.error('Failed to update role: ', res.error);

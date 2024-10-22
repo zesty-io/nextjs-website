@@ -64,8 +64,6 @@ export const Details = ({ data, onUpdateData }: DetailsProps) => {
           </Tooltip>
         </Stack>
         <Autocomplete
-          // As per Markel, updating system role zuid is not available
-          disabled
           disableClearable
           value={BASE_ROLE_OPTIONS.find(
             (role) => role.value === data?.systemRoleZUID,

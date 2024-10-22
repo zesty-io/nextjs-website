@@ -159,8 +159,19 @@ export const EditCustomRoleDialog = ({
     }
   };
 
+  const updateUserRole = () => {
+    const usersToReassign = roleUsers?.filter(
+      (user) => !userEmails?.includes(user.email),
+    );
+
+    console.log(usersToReassign);
+  };
+
   const handleSave = () => {
     setIsSaving(true);
+
+    // TODO: Add logic
+    updateUserRole();
 
     Promise.all([
       // Update role details
@@ -168,6 +179,7 @@ export const EditCustomRoleDialog = ({
         roleZUID: ZUID,
         name: detailsData.name?.replace(/[^\w\s\n]/g, ''),
         description: detailsData.description?.replace(/[^\w\s\n]/g, ''),
+        systemRoleZUID: detailsData.systemRoleZUID,
       }),
       // Delete a granular role if there's any to delete
       ...(!!resourceZUIDsToDelete && [
