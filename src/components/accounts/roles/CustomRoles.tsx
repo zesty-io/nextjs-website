@@ -28,10 +28,10 @@ type CustomRolesProps = {
 };
 export const CustomRoles = forwardRef(
   ({ customRoles }: CustomRolesProps, ref) => {
-    // const { customRoles } = useRoles((state) => state);
     const [anchorEl, setAnchorEl] = useState(null);
     const [ZUIDToEdit, setZUIDToEdit] = useState<string>(null);
     const [ZUIDToDelete, setZUIDToDelete] = useState<string>(null);
+    const [activeZUID, setActiveZUID] = useState<string>(null);
 
     useImperativeHandle(ref, () => ({
       updateZUIDToEdit: (ZUID: string) => setZUIDToEdit(ZUID),
@@ -84,6 +84,7 @@ export const CustomRoles = forwardRef(
                     onClick={(evt) => {
                       evt.stopPropagation();
                       setAnchorEl(evt.currentTarget);
+                      setActiveZUID(role.ZUID);
                     }}
                   >
                     <MoreHorizRounded />
@@ -91,7 +92,7 @@ export const CustomRoles = forwardRef(
                 </ListItemButton>
                 <Menu
                   anchorEl={anchorEl}
-                  open={!!anchorEl}
+                  open={!!anchorEl && role.ZUID === activeZUID}
                   onClose={() => setAnchorEl(null)}
                   anchorOrigin={{
                     vertical: 'bottom',
