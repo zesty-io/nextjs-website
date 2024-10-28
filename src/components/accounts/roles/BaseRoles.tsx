@@ -12,6 +12,7 @@ import {
   CodeRounded,
   RecommendRounded,
   BorderColorRounded,
+  PublicRounded,
 } from '@mui/icons-material';
 import { Role } from 'store/types';
 
@@ -29,7 +30,7 @@ const BASE_ROLES_CONFIG = Object.freeze({
   admin: {
     name: 'Admin',
     description:
-      'Admins have the same privileges as the Owner role except for deleting other users.',
+      'Have the same privileges as the Owner role except for deleting other users.',
     avatar: (
       <Avatar sx={{ bgcolor: 'success.light' }}>
         <AdminPanelSettingsRounded
@@ -39,14 +40,13 @@ const BASE_ROLES_CONFIG = Object.freeze({
     ),
   },
   'access admin': {
-    // TODO: Need to update details once Zosh provides copy
     name: 'Access Admin',
     description:
-      'Admins have the same privileges as the Owner role except for deleting other users.',
+      'Have the same privileges as Admins, except they cannot create, update, delete, or publish content.',
     avatar: (
-      <Avatar sx={{ bgcolor: 'success.light' }}>
+      <Avatar sx={{ bgcolor: 'pink.100' }}>
         <AdminPanelSettingsRounded
-          sx={{ fill: (theme) => theme.palette.success.dark }}
+          sx={{ fill: (theme) => theme.palette.pink[600] }}
         />
       </Avatar>
     ),
@@ -62,13 +62,12 @@ const BASE_ROLES_CONFIG = Object.freeze({
     ),
   },
   'developer contributor': {
-    // TODO: Need to update details once Zosh provides copy
     name: 'Developer Contributor',
     description:
-      'Access to Content, Schema, Media, Code, Leads, Redirects, Reports, Apps, and Setting section.',
+      'Have the same privileges as Developers except they cannot delete or publish content.',
     avatar: (
-      <Avatar sx={{ bgcolor: 'blue.100' }}>
-        <CodeRounded sx={{ fill: (theme) => theme.palette.blue[500] }} />
+      <Avatar sx={{ bgcolor: 'yellow.50' }}>
+        <CodeRounded sx={{ fill: (theme) => theme.palette.yellow[500] }} />
       </Avatar>
     ),
   },
@@ -87,9 +86,7 @@ const BASE_ROLES_CONFIG = Object.freeze({
     description: 'Access to Content, Media, Leads, Reports, and Apps section.',
     avatar: (
       <Avatar sx={{ bgcolor: 'pink.100' }}>
-        <AdminPanelSettingsRounded
-          sx={{ fill: (theme) => theme.palette.pink[600] }}
-        />
+        <PublicRounded sx={{ fill: (theme) => theme.palette.pink[600] }} />
       </Avatar>
     ),
   },
