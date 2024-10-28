@@ -37,6 +37,8 @@ export type Role = {
   description?: string;
 };
 
+export type RoleWithSort = Role & { sort?: number };
+
 export type SystemRole = {
   ZUID: string;
   create: boolean;

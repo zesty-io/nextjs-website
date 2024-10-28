@@ -1,15 +1,26 @@
 import { create } from 'zustand';
 
-import { UserRole, Role, GranularRole } from './types';
+import { UserRole, Role, GranularRole, RoleWithSort } from './types';
 import { getZestyAPI } from 'store';
 import { RoleDetails } from 'components/accounts/roles/CreateCustomRoleDialog';
 import { NewGranularRole } from 'components/accounts/roles/EditCustomRoleDialog/tabs/Permissions';
+
+const BASE_ROLE_SORT_ORDER = [
+  '31-71cfc74-0wn3r',
+  '31-71cfc74-4dm13',
+  '31-71cfc74-4cc4dm13',
+  '31-71cfc74-d3v3l0p3r',
+  '31-71cfc74-d3vc0n',
+  '31-71cfc74-s30',
+  '31-71cfc74-p0bl1shr',
+  '31-71cfc74-c0ntr1b0t0r',
+] as const;
 
 const ZestyAPI = getZestyAPI();
 
 type RolesState = {
   usersWithRoles: UserRole[];
-  baseRoles: Role[];
+  baseRoles: RoleWithSort[];
   customRoles: Role[];
 };
 type RolesAction = {
@@ -94,20 +105,25 @@ export const useRoles = create<RolesState & RolesAction>((set) => ({
       console.error('getRoles error: ', response.error);
       throw new Error(response.error);
     } else {
-      const _baseRoles: Role[] = [];
+      const _baseRoles: RoleWithSort[] = [];
       const _customRoles: Role[] = [];
 
       // Separate base roles from custom roles
       response.data?.forEach((role: Role) => {
         if (role.static) {
-          _baseRoles.push(role);
+          _baseRoles.push({
+            ...role,
+            sort: BASE_ROLE_SORT_ORDER.findIndex(
+              (systemRoleZUID) => systemRoleZUID === role.systemRoleZUID,
+            ),
+          });
         } else {
           _customRoles.push(role);
         }
       });
 
       set({
-        baseRoles: _baseRoles,
+        baseRoles: _baseRoles.sort((a, b) => a.sort - b.sort),
         customRoles: _customRoles,
       });
     }
