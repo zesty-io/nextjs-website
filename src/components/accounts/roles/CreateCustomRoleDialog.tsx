@@ -399,7 +399,7 @@ export const CreateCustomRoleDialog = ({
       >
         <Box>
           <Stack direction="row" alignItems="center" gap={1} mb={0.5}>
-            <InputLabel sx={{ mb: 0 }}>Role Name</InputLabel>
+            <InputLabel sx={{ mb: 0 }}>Role Name *</InputLabel>
             <Tooltip title="Lorem Ipsum" placement="right">
               <InfoRounded color="action" sx={{ fontSize: 12 }} />
             </Tooltip>
