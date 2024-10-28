@@ -30,6 +30,10 @@ type RolesAction = {
     description: string;
     systemRoleZUID: string;
   }) => Promise<void>;
+  deleteRole: (data: {
+    roleZUIDToDelete: string;
+    roleZUIDToTransferUsers: string;
+  }) => Promise<void>;
   createGranularRole: ({
     roleZUID,
     data,
@@ -139,6 +143,33 @@ export const useRoles = create<RolesState & RolesAction>((set) => ({
       throw new Error(res.error);
     } else {
       return res.data;
+    }
+  },
+  deleteRole: async ({ roleZUIDToDelete, roleZUIDToTransferUsers }) => {
+    if (!roleZUIDToDelete || !roleZUIDToTransferUsers) return;
+
+    // Transfer the existing users to a new role
+    const transferResponse = await ZestyAPI.bulkReassignUsersRole({
+      oldRoleZUID: roleZUIDToDelete,
+      newRoleZUID: roleZUIDToTransferUsers,
+    });
+
+    if (transferResponse.error) {
+      console.error('Failed to reassign users role: ', transferResponse.error);
+      throw new Error(transferResponse.error);
+    } else {
+      // Once users have been reassigned, delete the role
+      const deleteRoleResponse = await ZestyAPI.deleteRole(roleZUIDToDelete);
+
+      if (deleteRoleResponse.error) {
+        console.error(
+          `Failed to delete role ${roleZUIDToDelete}: `,
+          transferResponse.error,
+        );
+        throw new Error(transferResponse.error);
+      } else {
+        return deleteRoleResponse.data;
+      }
     }
   },
 

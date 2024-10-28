@@ -13,8 +13,10 @@ import {
 } from '@mui/material';
 import { DeleteRounded } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
+import { useRouter } from 'next/router';
 
 import { useRoles } from 'store/roles';
+import { ErrorMsg } from '../ui';
 
 type DeleteCustomRoleDialogProps = {
   ZUID: string;
@@ -24,7 +26,10 @@ export const DeleteCustomRoleDialog = ({
   ZUID,
   onClose,
 }: DeleteCustomRoleDialogProps) => {
-  const { customRoles, baseRoles } = useRoles((state) => state);
+  const router = useRouter();
+  const { customRoles, baseRoles, deleteRole, getUsersWithRoles, getRoles } =
+    useRoles((state) => state);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const roleData = useMemo(() => {
     return customRoles?.find((role) => role.ZUID === ZUID);
@@ -49,12 +54,32 @@ export const DeleteCustomRoleDialog = ({
     (role) => role.systemRoleZUID === roleData?.systemRoleZUID,
   );
 
-  const [value, setValue] = useState<{ label: string; value: string }>(
+  const [selectedTransferRole, setSelectedTransferRole] = useState<{
+    label: string;
+    value: string;
+  }>(
     {
       label: defaultBaseRole?.name,
       value: defaultBaseRole?.ZUID,
     } || null,
   );
+
+  const { zuid: instanceZUID } = router.query;
+
+  const handleConfirmDelete = () => {
+    setIsDeleting(true);
+    deleteRole({
+      roleZUIDToDelete: ZUID,
+      roleZUIDToTransferUsers: selectedTransferRole?.value,
+    })
+      .catch(() => ErrorMsg({ title: 'Failed to delete role' }))
+      .finally(() => {
+        setIsDeleting(false);
+        getRoles(String(instanceZUID));
+        getUsersWithRoles(String(instanceZUID));
+        onClose();
+      });
+  };
 
   return (
     <Dialog
@@ -81,9 +106,9 @@ export const DeleteCustomRoleDialog = ({
         <InputLabel>Role to reassign users to</InputLabel>
         <Autocomplete
           disableClearable
-          value={value}
+          value={selectedTransferRole}
           options={roleOptions}
-          onChange={(_, value) => setValue(value)}
+          onChange={(_, value) => setSelectedTransferRole(value)}
           renderInput={(params) => <TextField {...params} />}
         />
       </DialogContent>
@@ -91,7 +116,12 @@ export const DeleteCustomRoleDialog = ({
         <Button variant="text" color="inherit" onClick={() => onClose?.()}>
           Cancel
         </Button>
-        <LoadingButton variant="contained" color="error">
+        <LoadingButton
+          loading={isDeleting}
+          variant="contained"
+          color="error"
+          onClick={handleConfirmDelete}
+        >
           Delete Custom Role
         </LoadingButton>
       </DialogActions>
