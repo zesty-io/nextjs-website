@@ -30,6 +30,14 @@ import { GranularRole } from 'store/types';
 import { useZestyStore } from 'store';
 import { ErrorMsg } from 'components/accounts/ui';
 
+type FieldErrors = {
+  detailsTab: {
+    roleName: string;
+    roleDescription: string;
+  };
+  permissionsTab: string[];
+  usersTab: string[];
+};
 export type RoleDetails = {
   name: string;
   description: string;
@@ -62,6 +70,31 @@ export const EditCustomRoleDialog = ({
     'details' | 'permissions' | 'users'
   >('details');
   const [isSaving, setIsSaving] = useState(false);
+  const [fieldErrors, updateFieldErrors] = useReducer(
+    (
+      state: FieldErrors,
+      action: {
+        tab: keyof FieldErrors;
+        data: Partial<FieldErrors[keyof FieldErrors]>;
+      },
+    ) => {
+      return {
+        ...state,
+        [action.tab]: {
+          ...state[action.tab],
+          ...action.data,
+        },
+      };
+    },
+    {
+      detailsTab: {
+        roleName: null,
+        roleDescription: null,
+      },
+      permissionsTab: [],
+      usersTab: [],
+    },
+  );
 
   const roleUsers = useMemo(() => {
     if (!usersWithRoles?.length) return [];
@@ -222,17 +255,32 @@ export const EditCustomRoleDialog = ({
     ]);
   };
 
+  const saveDetailsUpdate = () => {
+    if (!detailsData?.name?.trim()) {
+      updateFieldErrors({
+        tab: 'detailsTab',
+        data: {
+          roleName: 'Role name is required',
+        },
+      });
+
+      return Promise.reject(new Error('Role name is required'));
+    } else {
+      return updateRole({
+        roleZUID: ZUID,
+        name: detailsData.name?.replace(/[^\w\s\n]/g, ''),
+        description: detailsData.description?.replace(/[^\w\s\n]/g, ''),
+        systemRoleZUID: detailsData.systemRoleZUID,
+      });
+    }
+  };
+
   const handleSave = () => {
     setIsSaving(true);
 
     Promise.all([
       // Update role details
-      updateRole({
-        roleZUID: ZUID,
-        name: detailsData.name?.replace(/[^\w\s\n]/g, ''),
-        description: detailsData.description?.replace(/[^\w\s\n]/g, ''),
-        systemRoleZUID: detailsData.systemRoleZUID,
-      }),
+      saveDetailsUpdate(),
       // Delete a granular role if there's any to delete
       ...(!!resourceZUIDsToDelete && [
         deleteGranularRole({
@@ -335,7 +383,22 @@ export const EditCustomRoleDialog = ({
         }}
       >
         {activeTab === 'details' && (
-          <Details data={detailsData} onUpdateData={updateDetailsData} />
+          <Details
+            data={detailsData}
+            onUpdateData={(data) => {
+              updateDetailsData(data);
+
+              if (data?.name?.length) {
+                updateFieldErrors({
+                  tab: 'detailsTab',
+                  data: {
+                    roleName: null,
+                  },
+                });
+              }
+            }}
+            errors={fieldErrors.detailsTab}
+          />
         )}
         {activeTab === 'permissions' && (
           <Permissions

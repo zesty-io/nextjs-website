@@ -21,8 +21,12 @@ import { useRoles } from 'store/roles';
 type DetailsProps = {
   data: RoleDetails;
   onUpdateData: (data: Partial<RoleDetails>) => void;
+  errors: {
+    roleName: string;
+    roleDescription: string;
+  };
 };
-export const Details = ({ data, onUpdateData }: DetailsProps) => {
+export const Details = ({ data, onUpdateData, errors }: DetailsProps) => {
   const { instance } = useZestyStore((state) => state);
   const { baseRoles } = useRoles((state) => state);
 
@@ -49,6 +53,8 @@ export const Details = ({ data, onUpdateData }: DetailsProps) => {
           onChange={(evt) => onUpdateData({ name: evt.target.value })}
           placeholder="e.g. Lawyer"
           fullWidth
+          error={!!errors?.roleName}
+          helperText={errors?.roleName}
         />
       </Box>
       <Box>
@@ -65,6 +71,8 @@ export const Details = ({ data, onUpdateData }: DetailsProps) => {
           multiline
           fullWidth
           rows={4}
+          error={!!errors?.roleDescription}
+          helperText={errors?.roleDescription}
         />
       </Box>
       <Box>
