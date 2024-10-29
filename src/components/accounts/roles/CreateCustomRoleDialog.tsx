@@ -284,6 +284,10 @@ export type RoleDetails = {
   description: string;
   systemRoleZUID: string;
 };
+type FieldErrors = {
+  name: string;
+  description: string;
+};
 
 type CreateCustomRoleDialogProps = {
   onClose: () => void;
@@ -297,6 +301,15 @@ export const CreateCustomRoleDialog = ({
   const { instance } = useZestyStore((state) => state);
   const { createRole, getRoles, baseRoles } = useRoles((state) => state);
   const [isCreatingRole, setIsCreatingRole] = useState(false);
+  const [fieldErrors, updateFieldErrors] = useReducer(
+    (state: FieldErrors, data: Partial<FieldErrors>) => {
+      return {
+        ...state,
+        ...data,
+      };
+    },
+    { name: null, description: null },
+  );
 
   const [fieldData, updateFieldData] = useReducer(
     (state: RoleDetails, data: Partial<RoleDetails>) => {
@@ -324,7 +337,12 @@ export const CreateCustomRoleDialog = ({
   const handleCreateRole = () => {
     const instanceZUID = String(router?.query?.zuid);
 
-    if (!fieldData.name && !fieldData.systemRoleZUID) return;
+    if (!fieldData.name) {
+      updateFieldErrors({
+        name: 'Role name is required',
+      });
+      return;
+    }
 
     setIsCreatingRole(true);
     createRole({
@@ -406,10 +424,20 @@ export const CreateCustomRoleDialog = ({
           </Stack>
           <TextField
             value={fieldData.name}
-            onChange={(evt) => updateFieldData({ name: evt.target.value })}
+            onChange={(evt) => {
+              updateFieldData({ name: evt.target.value });
+
+              if (!!evt.target.value) {
+                updateFieldErrors({
+                  name: null,
+                });
+              }
+            }}
             placeholder="e.g. Lawyer"
             fullWidth
             disabled={isCreatingRole}
+            error={!!fieldErrors?.name}
+            helperText={fieldErrors?.name}
           />
         </Box>
         <Box>
@@ -519,7 +547,6 @@ export const CreateCustomRoleDialog = ({
           Cancel
         </Button>
         <LoadingButton
-          disabled={!fieldData.systemRoleZUID || !fieldData.name}
           loading={isCreatingRole}
           variant="contained"
           color="primary"
