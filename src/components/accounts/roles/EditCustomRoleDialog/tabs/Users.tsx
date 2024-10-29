@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import {
   Chip,
   Box,
@@ -7,8 +7,10 @@ import {
   Tooltip,
   TextField,
   Autocomplete,
+  Typography,
 } from '@mui/material';
 import { InfoRounded } from '@mui/icons-material';
+import { useRoles } from 'store/roles';
 
 const emailAddressRegexp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -17,10 +19,18 @@ type UsersProps = {
   onUpdateUserEmails: (emails: string[]) => void;
 };
 export const Users = ({ userEmails, onUpdateUserEmails }: UsersProps) => {
+  const { usersWithRoles } = useRoles((state) => state);
   const [inputValue, setInputValue] = useState('');
   const [emailError, setEmailError] = useState(false);
   const emailChipsRef = useRef([]);
   const autocompleteRef = useRef(null);
+
+  const nonInstanceMembers = useMemo(() => {
+    if (!usersWithRoles?.length || !userEmails?.length) return [];
+    const instanceUserEmails = usersWithRoles?.map((user) => user.email);
+
+    return userEmails?.filter((email) => !instanceUserEmails?.includes(email));
+  }, [userEmails, usersWithRoles]);
 
   return (
     <Box>
@@ -56,9 +66,7 @@ export const Users = ({ userEmails, onUpdateUserEmails }: UsersProps) => {
             placeholder={
               userEmails.length ? '' : 'Email, comma or space separated'
             }
-            helperText={
-              emailError ? 'Please enter a valid email address.' : ' '
-            }
+            helperText={!!emailError && 'Please enter a valid email address.'}
             onKeyDown={(event) => {
               setEmailError(false);
               if (
@@ -168,6 +176,14 @@ export const Users = ({ userEmails, onUpdateUserEmails }: UsersProps) => {
           ))
         }
       />
+      {!!nonInstanceMembers?.length && (
+        <Typography variant="body2" color="error.dark" pt={0.5}>
+          These users are not part of this instance:{' '}
+          {nonInstanceMembers?.join(', ')}. To assign them a custom role, first
+          invite them with a system role. Once added, you can return to assign
+          them a custom role.
+        </Typography>
+      )}
     </Box>
   );
 };
