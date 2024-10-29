@@ -263,8 +263,6 @@ export const EditCustomRoleDialog = ({
           roleName: 'Role name is required',
         },
       });
-
-      return Promise.reject(new Error('Role name is required'));
     } else {
       return updateRole({
         roleZUID: ZUID,
