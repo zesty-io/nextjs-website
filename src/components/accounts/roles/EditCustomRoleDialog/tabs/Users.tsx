@@ -26,7 +26,10 @@ export const Users = ({ userEmails, onUpdateUserEmails }: UsersProps) => {
     <Box>
       <Stack direction="row" alignItems="center" gap={1} mb={0.5}>
         <InputLabel sx={{ mb: 0 }}>Users</InputLabel>
-        <Tooltip title="Lorem Ipsum" placement="right">
+        <Tooltip
+          title="All the users who should be assigned this role. Please note that you can only assign a custom role to a user who is already a part of this instance."
+          placement="right"
+        >
           <InfoRounded color="action" sx={{ fontSize: 12 }} />
         </Tooltip>
       </Stack>

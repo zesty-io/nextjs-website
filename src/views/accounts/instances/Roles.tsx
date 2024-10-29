@@ -60,7 +60,7 @@ export const Roles = ({ isLoading, hasPermission }: RolesProps) => {
           <AccountsHeader
             title="Roles & Permissions"
             description="Manage your roles and their permissions"
-            info="Lorem ipsum sit dolor"
+            info="View and manage all the roles (both system and custom) that your users can have."
           ></AccountsHeader>
           <Stack
             mx={4}
@@ -85,7 +85,7 @@ export const Roles = ({ isLoading, hasPermission }: RolesProps) => {
           <AccountsHeader
             title="Roles & Permissions"
             description="Manage your roles and their permissions"
-            info="Lorem ipsum sit dolor"
+            info="View and manage all the roles (both system and custom) that your users can have."
           ></AccountsHeader>
           <Stack
             mx={4}
@@ -108,7 +108,7 @@ export const Roles = ({ isLoading, hasPermission }: RolesProps) => {
         <AccountsHeader
           title="Roles & Permissions"
           description="Manage your roles and their permissions"
-          info="Lorem ipsum sit dolor"
+          info="View and manage all the roles (both system and custom) that your users can have."
         >
           <Stack gap={2} direction="row">
             <TextField

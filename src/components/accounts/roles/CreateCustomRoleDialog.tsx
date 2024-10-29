@@ -418,7 +418,10 @@ export const CreateCustomRoleDialog = ({
         <Box>
           <Stack direction="row" alignItems="center" gap={1} mb={0.5}>
             <InputLabel sx={{ mb: 0 }}>Role Name *</InputLabel>
-            <Tooltip title="Lorem Ipsum" placement="right">
+            <Tooltip
+              title="This is the name the role and it's permissions will be associated with when assigned to a user."
+              placement="right"
+            >
               <InfoRounded color="action" sx={{ fontSize: 12 }} />
             </Tooltip>
           </Stack>
@@ -443,7 +446,10 @@ export const CreateCustomRoleDialog = ({
         <Box>
           <Stack direction="row" alignItems="center" gap={1} mb={0.5}>
             <InputLabel sx={{ mb: 0 }}>Role Description</InputLabel>
-            <Tooltip title="Lorem Ipsum" placement="right">
+            <Tooltip
+              title="Enter a short note about this role, such as who it is for and how and when it is going to be used."
+              placement="right"
+            >
               <InfoRounded color="action" sx={{ fontSize: 12 }} />
             </Tooltip>
           </Stack>
@@ -462,7 +468,10 @@ export const CreateCustomRoleDialog = ({
         <Box>
           <Stack direction="row" alignItems="center" gap={1} mb={0.5}>
             <InputLabel sx={{ mb: 0 }}>Base Role</InputLabel>
-            <Tooltip title="Lorem Ipsum" placement="right">
+            <Tooltip
+              title="Choose a base role to build your custom role off. This will set default app permissions, which you can then customize with granular permissions."
+              placement="right"
+            >
               <InfoRounded color="action" sx={{ fontSize: 12 }} />
             </Tooltip>
           </Stack>
