@@ -298,6 +298,18 @@ export const EditCustomRoleDialog = ({
         getRoles(String(instanceZUID));
         getPermissions(ZUID);
         setIsSaving(false);
+
+        // Navigate to the tab if that tab has errors
+        if (
+          !!fieldErrors?.detailsTab?.roleName ||
+          !!fieldErrors?.detailsTab?.roleDescription
+        ) {
+          setActiveTab('details');
+        } else if (!!fieldErrors?.permissionsTab?.length) {
+          setActiveTab('permissions');
+        } else if (!!fieldErrors?.usersTab?.length) {
+          setActiveTab('users');
+        }
       });
   };
 
