@@ -167,10 +167,12 @@ export const EditCustomRoleDialog = ({
     if (!!roleData?.granularRoleZUID) {
       // If a granularRoleZUID is already attached to the role, we can just
       // do an update to add the new granular roles
-      return updateGranularRole({
-        roleZUID: ZUID,
-        granularRoles: payload,
-      });
+      if (!!payload?.length) {
+        return updateGranularRole({
+          roleZUID: ZUID,
+          granularRoles: payload,
+        });
+      }
     } else {
       // If the role doesn't have any granularRoleZUID attached, we need to create a
       // granular role first
@@ -298,6 +300,7 @@ export const EditCustomRoleDialog = ({
         getRoles(String(instanceZUID));
         getPermissions(ZUID);
         setIsSaving(false);
+        setResourceZUIDsToDelete([]);
 
         // Navigate to the tab if that tab has errors
         if (
