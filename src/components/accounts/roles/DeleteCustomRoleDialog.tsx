@@ -57,12 +57,10 @@ export const DeleteCustomRoleDialog = ({
   const [selectedTransferRole, setSelectedTransferRole] = useState<{
     label: string;
     value: string;
-  }>(
-    {
-      label: defaultBaseRole?.name,
-      value: defaultBaseRole?.ZUID,
-    } || null,
-  );
+  }>({
+    label: defaultBaseRole?.name,
+    value: defaultBaseRole?.ZUID,
+  });
 
   const { zuid: instanceZUID } = router.query;
 
