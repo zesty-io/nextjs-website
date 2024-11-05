@@ -31,7 +31,7 @@ jobs:
 
       - name: 🚚 Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm install --force --prefer-offline --no-audit
 
   build-check:
     strategy:
@@ -150,7 +150,7 @@ jobs:
         run: echo "127.0.0.1 test.zesty.io" | sudo tee -a /etc/hosts
 
       - name: 🚚 Install dependencies
-        run: npm install --force --prefer-offline --no-audit
+        run: npm ci
 
       - name: 📝 Write the cypress.env.json file
         run: |
