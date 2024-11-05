@@ -31,7 +31,7 @@ jobs:
 
       - name: 🚚 Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install --force --prefer-offline --no-audit
+        run: npm ci
 
   build-check:
     strategy:
