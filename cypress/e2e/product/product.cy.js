@@ -41,8 +41,8 @@ describe('test for built in products pages in app', () => {
   const urls = [
     '/product/auth-success',
     '/product/',
-    'product/schema/content-models/',
-    'product/schema/',
+    '/product/schema/content-models/',
+    '/product/schema/',
   ];
 
   urls.forEach((url) => {

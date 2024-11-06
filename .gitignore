@@ -34,6 +34,8 @@ yarn-error.log*
 .eslintcache
 cypress.env.json
 cypress.json
+cypress.config.ts
+cypress.config.js
 
 cypress/integration/__image_snapshots__
 .vercel

@@ -8,6 +8,8 @@ describe('E2E accounts: Navigate user', () => {
 
   it('Test user navigation in Accounts', () => {
     cy.wait(3000);
+
+    cy.visit('/');
     cy.get("[data-testid='instancesContainer']", { timeout: 30000 }).should(
       'exist',
     );
