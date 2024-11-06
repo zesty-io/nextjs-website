@@ -165,19 +165,19 @@ const cardData = [
     title: 'Instances API',
     description:
       'A collection of available REST endpoints scoped to your unique instance.',
-    link: '/docs/instances/api-reference/',
+    link: 'https://docs.zesty.io/reference/instances-api-reference',
   },
   {
     title: 'Authentication API',
     description:
       'Auth API is used to authenticate users with Zesty.io, which returns a token that grants to access services like Instances API, Accounts API, and Media API. Auth was setup as a stand alone service so it can connect to many services in our infrastructure.',
-    link: '/docs/authentication/api-reference/',
+    link: 'https://docs.zesty.io/reference/authentication-api-reference',
   },
   {
     title: 'Accounts API',
     description:
       'API used to control management of users, roles, instances, and teams.',
-    link: '/docs/accounts/api-reference/',
+    link: 'https://docs.zesty.io/reference/accounts-api-reference',
   },
   {
     title: 'Guides',
