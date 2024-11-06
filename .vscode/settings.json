@@ -5,7 +5,4 @@
    "editor.codeActionsOnSave": {
       "source.fixAll.format": "never"
    },
-   "[javascript]": {
-      "editor.defaultFormatter": "vscode.typescript-language-features"
-   }
 }
