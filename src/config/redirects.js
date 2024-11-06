@@ -46,4 +46,4 @@ const docsRedirects = [
   },
 ];
 
-export { docsRedirects };
+module.exports = { docsRedirects };
