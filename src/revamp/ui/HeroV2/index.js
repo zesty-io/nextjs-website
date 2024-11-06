@@ -6,8 +6,6 @@ import { useEffect, useState } from 'react';
 import { FONT_FAMILY } from 'components/globals/constants';
 
 import Logos from './Logos';
-const a = 'aa';
-a;
 
 const media =
     'https://kfg6bckb.media.zestyio.com/Zesty-io-2023-Homepage-Graphic.webp',
