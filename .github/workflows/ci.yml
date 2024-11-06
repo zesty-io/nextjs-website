@@ -154,7 +154,7 @@ jobs:
 
       - name: 📝 Write the cypress.env.json file
         run: |
-          echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.config.js
+          echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
 
       - name: 🧪 Run E2E test
         run: npm run test:e2e:ci:prod
