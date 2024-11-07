@@ -16,7 +16,7 @@ const docsRedirects = [
   },
   {
     source: '/docs/parsley/api-reference/:path*',
-    destination: 'https://docs.zesty.io/reference',
+    destination: 'https://docs.zesty.io/docs/parsley',
     permanent: true,
   },
   {
