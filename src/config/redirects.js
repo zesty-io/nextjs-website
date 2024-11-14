@@ -20,11 +20,6 @@ const docsRedirects = [
     permanent: true,
   },
   {
-    source: '/docs/media/api-reference/:path*',
-    destination: 'https://docs.zesty.io/reference/media-api-reference',
-    permanent: true,
-  },
-  {
     source: '/docs/media/api-reference/manager/:path*',
     destination: 'https://docs.zesty.io/reference/media-manager-api-reference',
     permanent: true,
@@ -42,6 +37,11 @@ const docsRedirects = [
   {
     source: '/docs/media/api-reference/resolver/:path*',
     destination: 'https://docs.zesty.io/reference/media-resolver-api-reference',
+    permanent: true,
+  },
+  {
+    source: '/docs/media/api-reference/:path*',
+    destination: 'https://docs.zesty.io/reference/media-api-reference',
     permanent: true,
   },
 ];
