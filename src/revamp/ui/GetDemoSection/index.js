@@ -19,9 +19,7 @@ import useGetDynamicData from './useGetDynamicData';
 import { useRouter } from 'next/router';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
-const acorns =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Acorns%20Logo.svg',
-  bjs = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/BJ's%20Logo.svg`,
+const bjs = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/BJ's%20Logo.svg`,
   rocketLeague = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Horizontal_Text.svg`,
   cornershop = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Logo_de_Cornershop%201.svg`,
   phoenixSuns = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Phoenix%20Suns.svg`,
@@ -368,14 +366,6 @@ export function Logos({ invert = false, alignLeft }) {
           width="102.12px"
           height="32px"
           alt={generateAlt('Singlife')}
-        />
-        <img
-          style={{ filter: invert ? 'invert(0.5)' : 'none' }}
-          loading="lazy"
-          src={acorns}
-          width="94px"
-          height="32px"
-          alt={generateAlt('Acorns')}
         />
         <img
           style={{ filter: invert ? 'invert(0.5)' : 'none' }}
