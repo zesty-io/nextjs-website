@@ -9,8 +9,6 @@ import Logos from './Logos';
 
 const media =
     'https://kfg6bckb.media.zestyio.com/Zesty-io-2023-Homepage-Graphic.webp',
-  acorns = 'https://kfg6bckb.media.zestyio.com/acornsHero.svg',
-  bjs = 'https://kfg6bckb.media.zestyio.com/bjsHero.svg',
   phoenixSuns = 'https://kfg6bckb.media.zestyio.com/phoenixSunsHero.svg',
   rocketLeague = 'https://kfg6bckb.media.zestyio.com/rocketLeagueHero.svg',
   singlife = 'https://kfg6bckb.media.zestyio.com/singlifeHero.svg',
@@ -37,20 +35,6 @@ const logos = [
     height: 32,
     title: 'Singlife',
     alt: generateAlt('Singlife'),
-  },
-  {
-    src: acorns,
-    width: 94,
-    height: 32,
-    title: 'Acorns',
-    alt: generateAlt('Acorns'),
-  },
-  {
-    src: bjs,
-    width: 36.48,
-    height: 32,
-    title: 'Bjs',
-    alt: generateAlt('Bjs'),
   },
   {
     src: phoenixSuns,
