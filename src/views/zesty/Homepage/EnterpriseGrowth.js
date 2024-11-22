@@ -6,12 +6,12 @@ const Child = dynamic(() => import('revamp/ui/EnterpriseGrowth'), {
   loading: Placeholder,
 });
 
-const Index = () => {
+const Index = (props) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0,
   });
-  return <div ref={ref}>{inView && <Child />}</div>;
+  return <div ref={ref}>{inView && <Child {...props} />}</div>;
 };
 
 export default Index;

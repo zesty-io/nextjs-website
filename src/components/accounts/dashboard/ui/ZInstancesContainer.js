@@ -12,11 +12,9 @@ const ZInstancesContainer = ({
 }) => {
   const dayTime = () => {
     const hour = new Date().getHours();
-    if (hour >= 5 && hour <= 12) return 'Good Morning, ';
+    if (hour >= 0 && hour <= 12) return 'Good Morning, ';
     else if (hour > 12 && hour <= 17) return 'Good Afternoon, ';
-    else if (hour > 17 && hour <= 21) return 'Good Evening, ';
-    else if ((hour > 21 && hour <= 23) || (hour >= 0 && hour <= 4))
-      return 'Good Night, ';
+    else if (hour > 17 && hour <= 23) return 'Good Evening, ';
   };
   return (
     <>

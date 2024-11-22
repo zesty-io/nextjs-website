@@ -15,7 +15,15 @@ const site = 'https://www.zesty.io';
 
 const Login = (props) => {
   const router = useRouter();
-  const content = props.data.data[0].content;
+  const content =
+    props.data.data
+      .sort(
+        (a, b) =>
+          new Date(b.content.start_date_and_time) -
+          new Date(a.content.start_date_and_time),
+      )
+      .map((item) => item.content)[0] || null;
+
   const loginContent = props.loginData.data[0].content;
   const ogimage = content?.feature_image?.data[0]?.url;
 
