@@ -1,6 +1,6 @@
 html {
   scroll-behavior: smooth;
-  font-family: Mulish, Arial, Helvetica,sans-serif;
+  font-family: Mulish, Arial, Helvetica, sans-serif;
 }
 
 h1 span {
@@ -28,7 +28,7 @@ h2 span {
   flex-shrink: 0;
   width: 40px;
   height: 40px;
-  font-family: 'Mulish', Arial, Helvetica,sans-serif;
+  font-family: 'Mulish', Arial, Helvetica, sans-serif;
   font-size: 1.25rem;
   line-height: 1;
   border-radius: 4px;
@@ -46,74 +46,74 @@ h2 span {
   margin-right: 10px;
 }
 
-
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active{
-    -webkit-box-shadow: 0 0 0 30px white inset !important;
-    font-family: Mulish, Arial, sans-serif;
-    font-size: 14px
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  font-family: Mulish, Arial, sans-serif;
+  font-size: 14px;
 }
 
 @font-face {
-    font-family: 'Mulish';
-    src: url(../fonts/Mulish-Regular.woff2) format(woff2);
-    font-style: normal;
-    font-weight: 400;
-}
-
-
-@font-face {
-    font-family: 'Mulish';
-    src: url(../fonts/Mulish-Medium.woff2) format(woff2);
-    font-style: normal;
-    font-weight: 500;
+  font-family: 'Mulish';
+  src: url(../fonts/Mulish-Regular.woff2) format(woff2);
+  font-style: normal;
+  font-weight: 400;
 }
 
 @font-face {
-    font-family: 'Mulish';
-    src: url(../fonts/Mulish-SemiBold.woff2) format(woff2);
-    font-style: normal;
-    font-weight: 600;
+  font-family: 'Mulish';
+  src: url(../fonts/Mulish-Medium.woff2) format(woff2);
+  font-style: normal;
+  font-weight: 500;
 }
 
 @font-face {
-    font-family: 'Mulish';
-    src: url(../fonts/Mulish-Bold.woff2) format(woff2);
-    font-style: normal;
-    font-weight: 700;
+  font-family: 'Mulish';
+  src: url(../fonts/Mulish-SemiBold.woff2) format(woff2);
+  font-style: normal;
+  font-weight: 600;
 }
 
 @font-face {
-    font-family: 'Mulish';
-    src: url(../fonts/Mulish-ExtraBold.woff2) format(woff2);
-    font-style: normal;
-    font-weight: 800;
+  font-family: 'Mulish';
+  src: url(../fonts/Mulish-Bold.woff2) format(woff2);
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Mulish';
+  src: url(../fonts/Mulish-ExtraBold.woff2) format(woff2);
+  font-style: normal;
+  font-weight: 800;
 }
 @font-face {
-    font-family: 'Mulish';
-    src: url(../fonts/Mulish-Black.woff2) format(woff2);
-    font-style: normal;
-    font-weight: 900;
+  font-family: 'Mulish';
+  src: url(../fonts/Mulish-Black.woff2) format(woff2);
+  font-style: normal;
+  font-weight: 900;
 }
 
 /* Algolia DocSearch CSS */
 
 /*! @docsearch/css 3.5.2 | MIT License | © Algolia, Inc. and contributors | https://docsearch.algolia.com */
 :root {
-    --docsearch-primary-color: #FF5D0A !important;
-    --docsearch-text-color: #5b5b5b !important;
-    --docsearch-logo-color:#FF5D0A !important;
-
+  --docsearch-primary-color: #ff5d0a !important;
+  --docsearch-text-color: #5b5b5b !important;
+  --docsearch-logo-color: #ff5d0a !important;
 }
 
-
-.DocSearch-Container  {
-  z-index: 9999 !important
+.DocSearch-Container {
+  z-index: 9999 !important;
 }
 .DocSearch-Button {
   width: 100% !important;
   max-width: 350px !important;
 }
 
+/* Makes sure that the swal is on top of the MUI modals */
+.swal-zindex-override {
+  z-index: 1301;
+}
