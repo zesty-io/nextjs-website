@@ -1,4 +1,5 @@
 const zestyConfig = require('./zesty.config.json');
+const { docsRedirects } = require('./src/config/redirects');
 
 module.exports = {
   trailingSlash: true,
@@ -14,4 +15,8 @@ module.exports = {
     ],
   },
   swcMinify: true,
+
+  async redirects() {
+    return [...docsRedirects];
+  },
 };
