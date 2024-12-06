@@ -19,11 +19,7 @@ import useGetDynamicData from './useGetDynamicData';
 import { useRouter } from 'next/router';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
-const acorns =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Acorns%20Logo.svg',
-  bjs = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/BJ's%20Logo.svg`,
-  rocketLeague = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Horizontal_Text.svg`,
-  cornershop = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Logo_de_Cornershop%201.svg`,
+const rocketLeague = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Horizontal_Text.svg`,
   phoenixSuns = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Phoenix%20Suns.svg`,
   singlife = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Singlife%20Logo.svg`,
   sony = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Sony%20Logo.svg`,
@@ -372,14 +368,6 @@ export function Logos({ invert = false, alignLeft }) {
         <img
           style={{ filter: invert ? 'invert(0.5)' : 'none' }}
           loading="lazy"
-          src={acorns}
-          width="94px"
-          height="32px"
-          alt={generateAlt('Acorns')}
-        />
-        <img
-          style={{ filter: invert ? 'invert(0.5)' : 'none' }}
-          loading="lazy"
           src={phoenixSuns}
           width="107.54px"
           height="32px"
@@ -392,22 +380,6 @@ export function Logos({ invert = false, alignLeft }) {
           width="115.91px"
           height="32px"
           alt={generateAlt('Wattpad')}
-        />
-        <img
-          style={{ filter: invert ? 'invert(0.5)' : 'none' }}
-          loading="lazy"
-          src={cornershop}
-          width="96.69px"
-          height="32px"
-          alt={generateAlt('Corner Shop')}
-        />
-        <img
-          style={{ filter: invert ? 'invert(0.5)' : 'none' }}
-          loading="lazy"
-          src={bjs}
-          width="36.48px"
-          height="32px"
-          alt={generateAlt('Bjs')}
         />
       </Stack>
     </Stack>
