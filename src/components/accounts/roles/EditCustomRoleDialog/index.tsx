@@ -58,7 +58,7 @@ type EditCustomRoleDialogProps = {
 export const EditCustomRoleDialog = ({
   ZUID,
   onClose,
-  tabToOpen = 'details',
+  tabToOpen = TabNames.details,
 }: EditCustomRoleDialogProps) => {
   const router = useRouter();
   const { ZestyAPI } = useZestyStore((state: any) => state);
