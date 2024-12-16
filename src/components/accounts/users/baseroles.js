@@ -47,4 +47,20 @@ export const baseroles = [
     label: 'Contributor',
     value: 'contributor',
   },
+  {
+    ZUID: '31-71cfc74-d3vc0n',
+    desc: '',
+    name: '6 - Developer Contributor',
+    accessLevel: 6,
+    label: 'Developer Contributor',
+    value: 'developer-contributor',
+  },
+  {
+    ZUID: '31-71cfc74-4cc4dm13',
+    desc: '',
+    name: '7 - Access Admin',
+    accessLevel: 7,
+    label: 'Access Admin',
+    value: 'access-admin',
+  },
 ];

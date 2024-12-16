@@ -3,6 +3,7 @@ export const lang = {
     tabs: {
       '': 'Overview',
       users: 'Users',
+      roles: 'Roles & Permissions',
       teams: 'Teams',
       domains: 'Domains',
       usage: 'Usage',
