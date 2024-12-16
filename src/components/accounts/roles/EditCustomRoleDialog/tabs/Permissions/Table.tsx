@@ -55,7 +55,7 @@ export const Table = ({
             defaultChecked={!!params.value}
             onChange={(evt) =>
               onDataChange({
-                resourceZUID: params.row?.resourceZUID,
+                resourceZUID: params.row?.id,
                 create: evt.target.checked,
               })
             }
@@ -71,7 +71,7 @@ export const Table = ({
             defaultChecked={!!params.value}
             onChange={(evt) =>
               onDataChange({
-                resourceZUID: params.row?.resourceZUID,
+                resourceZUID: params.row?.id,
                 read: evt.target.checked,
               })
             }
@@ -87,7 +87,7 @@ export const Table = ({
             defaultChecked={!!params.value}
             onChange={(evt) =>
               onDataChange({
-                resourceZUID: params.row?.resourceZUID,
+                resourceZUID: params.row?.id,
                 update: evt.target.checked,
               })
             }
@@ -103,7 +103,7 @@ export const Table = ({
             defaultChecked={!!params.value}
             onChange={(evt) =>
               onDataChange({
-                resourceZUID: params.row?.resourceZUID,
+                resourceZUID: params.row?.id,
                 delete: evt.target.checked,
               })
             }
@@ -119,7 +119,7 @@ export const Table = ({
             defaultChecked={!!params.value}
             onChange={(evt) =>
               onDataChange({
-                resourceZUID: params.row?.resourceZUID,
+                resourceZUID: params.row?.id,
                 publish: evt.target.checked,
               })
             }

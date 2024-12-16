@@ -19,7 +19,11 @@ import {
   DeleteRounded,
 } from '@mui/icons-material';
 
-import { EditCustomRoleDialog } from './EditCustomRoleDialog';
+import {
+  EditCustomRoleDialog,
+  TabNames,
+  TabName,
+} from './EditCustomRoleDialog';
 import { DeleteCustomRoleDialog } from './DeleteCustomRoleDialog';
 import { Role } from 'store/types';
 
@@ -32,9 +36,13 @@ export const CustomRoles = forwardRef(
     const [ZUIDToEdit, setZUIDToEdit] = useState<string>(null);
     const [ZUIDToDelete, setZUIDToDelete] = useState<string>(null);
     const [activeZUID, setActiveZUID] = useState<string>(null);
+    const [tabToOpen, setTabToOpen] = useState<TabName>(TabNames.details);
 
     useImperativeHandle(ref, () => ({
-      updateZUIDToEdit: (ZUID: string) => setZUIDToEdit(ZUID),
+      updateZUIDToEdit: (ZUID: string) => {
+        setZUIDToEdit(ZUID);
+        setTabToOpen(TabNames.permissions);
+      },
     }));
 
     return (
@@ -57,6 +65,7 @@ export const CustomRoles = forwardRef(
                   }}
                   onClick={() => {
                     setZUIDToEdit(role.ZUID);
+                    setTabToOpen(TabNames.details);
                   }}
                 >
                   <ListItemAvatar>
@@ -107,6 +116,7 @@ export const CustomRoles = forwardRef(
                     onClick={() => {
                       setAnchorEl(null);
                       setZUIDToEdit(role.ZUID);
+                      setTabToOpen(TabNames.details);
                     }}
                   >
                     <ListItemIcon>
@@ -134,6 +144,7 @@ export const CustomRoles = forwardRef(
           <EditCustomRoleDialog
             ZUID={ZUIDToEdit}
             onClose={() => setZUIDToEdit(null)}
+            tabToOpen={tabToOpen}
           />
         )}
         {!!ZUIDToDelete && (

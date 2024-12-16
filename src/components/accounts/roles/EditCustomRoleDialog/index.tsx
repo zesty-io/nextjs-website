@@ -30,6 +30,12 @@ import { GranularRole } from 'store/types';
 import { useZestyStore } from 'store';
 import { ErrorMsg } from 'components/accounts/ui';
 
+export const TabNames = {
+  details: 'details',
+  permissions: 'permissions',
+  users: 'users',
+} as const;
+export type TabName = (typeof TabNames)[keyof typeof TabNames];
 type FieldErrors = {
   detailsTab: {
     roleName: string;
@@ -47,10 +53,12 @@ export type RoleDetails = {
 type EditCustomRoleDialogProps = {
   ZUID: string;
   onClose: () => void;
+  tabToOpen?: TabName;
 };
 export const EditCustomRoleDialog = ({
   ZUID,
   onClose,
+  tabToOpen = TabNames.details,
 }: EditCustomRoleDialogProps) => {
   const router = useRouter();
   const { ZestyAPI } = useZestyStore((state: any) => state);
@@ -66,9 +74,7 @@ export const EditCustomRoleDialog = ({
     updateUserRole,
     getUsersWithRoles,
   } = useRoles((state) => state);
-  const [activeTab, setActiveTab] = useState<
-    'details' | 'permissions' | 'users'
-  >('details');
+  const [activeTab, setActiveTab] = useState<TabName>(tabToOpen);
   const [isSaving, setIsSaving] = useState(false);
   const [fieldErrors, updateFieldErrors] = useReducer(
     (
@@ -395,7 +401,7 @@ export const EditCustomRoleDialog = ({
           bgcolor: 'grey.50',
         }}
       >
-        {activeTab === 'details' && (
+        {activeTab === TabNames.details && (
           <Details
             data={detailsData}
             onUpdateData={(data) => {
@@ -413,7 +419,7 @@ export const EditCustomRoleDialog = ({
             errors={fieldErrors.detailsTab}
           />
         )}
-        {activeTab === 'permissions' && (
+        {activeTab === TabNames.permissions && (
           <Permissions
             granularRoles={granularRoles}
             onAddNewGranularRole={(newRoleData) => {
@@ -465,7 +471,7 @@ export const EditCustomRoleDialog = ({
             }}
           />
         )}
-        {activeTab === 'users' && (
+        {activeTab === TabNames.users && (
           <Users
             userEmails={userEmails}
             onUpdateUserEmails={(emails) => setUserEmails(emails)}
