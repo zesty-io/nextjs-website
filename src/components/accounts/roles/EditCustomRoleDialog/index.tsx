@@ -318,6 +318,8 @@ export const EditCustomRoleDialog = ({
           setActiveTab('permissions');
         } else if (!!fieldErrors?.usersTab?.length) {
           setActiveTab('users');
+        } else {
+          onClose();
         }
       });
   };
