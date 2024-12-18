@@ -360,7 +360,7 @@ export const EditCustomRoleDialog = ({
             <Avatar sx={{ bgcolor: 'blue.100' }}>
               <LocalPoliceOutlined color="info" />
             </Avatar>
-            <Box display="inline">
+            <Stack>
               <Typography variant="h5" fontWeight={700}>
                 Edit {roleData?.name}
               </Typography>
@@ -372,10 +372,10 @@ export const EditCustomRoleDialog = ({
                 Edit your custom role that can have granular permissions applied
                 to it
               </Typography>
-            </Box>
+            </Stack>
           </Stack>
           <IconButton size="small" onClick={() => onClose?.()}>
-            <Close />
+            <Close fontSize="small" />
           </IconButton>
         </Stack>
         <Tabs

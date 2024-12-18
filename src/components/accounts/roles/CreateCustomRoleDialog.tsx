@@ -393,7 +393,7 @@ export const CreateCustomRoleDialog = ({
           <Avatar sx={{ bgcolor: 'blue.100' }}>
             <LocalPoliceOutlined color="info" />
           </Avatar>
-          <Box display="inline">
+          <Stack>
             <Typography variant="h5" fontWeight={700}>
               Create Custom Role
             </Typography>
@@ -401,10 +401,10 @@ export const CreateCustomRoleDialog = ({
               Creates a custom role that can have granular permissions applied
               to it
             </Typography>
-          </Box>
+          </Stack>
         </Stack>
         <IconButton size="small" onClick={() => onClose?.()}>
-          <Close />
+          <Close fontSize="small" />
         </IconButton>
       </Stack>
       <DialogContent

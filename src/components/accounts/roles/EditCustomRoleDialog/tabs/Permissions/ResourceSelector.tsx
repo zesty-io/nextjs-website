@@ -107,7 +107,15 @@ export const ResourceSelector = ({
               height: 36,
             }}
           >
-            <ListItemIcon sx={{ minWidth: 32 }}>
+            <ListItemIcon
+              sx={{
+                minWidth: 32,
+                '& .MuiSvgIcon-root': {
+                  width: 20,
+                  height: 20,
+                },
+              }}
+            >
               {option.type === 'model' ? <Database /> : <EditRounded />}
             </ListItemIcon>
             <ListItemText
@@ -119,9 +127,12 @@ export const ResourceSelector = ({
                 wordBreak: 'break-word',
                 wordWrap: 'break-word',
               }}
-            >
-              {option.label}
-            </ListItemText>
+              primaryTypographyProps={{
+                variant: 'body2',
+                color: 'text.secondary',
+              }}
+              primary={option.label}
+            />
           </ListItem>
         );
       }}
@@ -132,6 +143,11 @@ export const ResourceSelector = ({
       ListboxComponent={forwardRef(VirtualizedListComp)}
       onKeyDown={(evt) => {
         evt.stopPropagation();
+      }}
+      slotProps={{
+        paper: {
+          elevation: 8,
+        },
       }}
     />
   );

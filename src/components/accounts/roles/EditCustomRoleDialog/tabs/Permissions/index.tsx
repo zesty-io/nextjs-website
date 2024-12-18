@@ -95,14 +95,14 @@ export const Permissions = ({
   return (
     <Box>
       <Stack direction="row" justifyContent="space-between" mb={2} height={48}>
-        <Box>
+        <Stack gap={0.25}>
           <Typography variant="h5" fontWeight={700}>
             Resource Permissions
           </Typography>
           <Typography variant="body3" fontWeight={600} color="text.secondary">
             Grant users access only to resources you specify
           </Typography>
-        </Box>
+        </Stack>
         <Box>
           <TextField
             ref={searchFieldRef}
@@ -116,6 +116,9 @@ export const Permissions = ({
                   <Search />
                 </InputAdornment>
               ),
+            }}
+            sx={{
+              width: 240,
             }}
           />
           <Button
@@ -148,7 +151,7 @@ export const Permissions = ({
         />
       )}
       {showAddRule && (
-        <Box pt={2} ref={addGranularRoleRef}>
+        <Box pt={granularRoles?.length ? 2 : 0} ref={addGranularRoleRef}>
           <AddRule
             onCancel={() => setShowAddRule(false)}
             onAddRuleClick={(newRoleData) => {

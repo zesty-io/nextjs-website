@@ -6,7 +6,7 @@ import { theme } from '@zesty-io/material';
 const Index = ({ title, description, info, children }) => {
   return (
     <ThemeProvider theme={theme}>
-      <Grid item xs={12} px={4} py={3}>
+      <Grid item xs={12} px={4} py={2}>
         <Stack direction={{ xs: 'column', md: 'row' }}>
           <Stack direction="column" justifyContent="space-between">
             <Stack direction="row" alignItems="center" mb={1.5} spacing={1}>
