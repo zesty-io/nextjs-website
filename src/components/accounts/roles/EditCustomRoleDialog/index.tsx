@@ -19,6 +19,7 @@ import {
   InfoRounded,
   RuleRounded,
   GroupsRounded,
+  SaveRounded,
 } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 
@@ -501,6 +502,7 @@ export const EditCustomRoleDialog = ({
           variant="contained"
           color="primary"
           onClick={handleSave}
+          startIcon={<SaveRounded />}
         >
           Save
         </LoadingButton>
