@@ -374,7 +374,8 @@ export const CreateCustomRoleDialog = ({
         sx: {
           maxWidth: 960,
           width: 960,
-          minHeight: 800,
+          maxHeight: 'calc(100% - 40px)',
+          my: 2.5,
         },
       }}
     >

@@ -1,4 +1,4 @@
-import { useMemo, useState, useReducer, useEffect } from 'react';
+import { useMemo, useState, useReducer, useEffect, useRef } from 'react';
 import {
   Typography,
   Avatar,
@@ -74,6 +74,8 @@ export const EditCustomRoleDialog = ({
     updateUserRole,
     getUsersWithRoles,
   } = useRoles((state) => state);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [minHeight, setMinHeight] = useState(0);
   const [activeTab, setActiveTab] = useState<TabName>(tabToOpen);
   const [isSaving, setIsSaving] = useState(false);
   const [fieldErrors, updateFieldErrors] = useReducer(
@@ -101,6 +103,12 @@ export const EditCustomRoleDialog = ({
       usersTab: [],
     },
   );
+
+  useEffect(() => {
+    setTimeout(() => {
+      setMinHeight(containerRef.current?.clientHeight);
+    });
+  }, []);
 
   const roleUsers = useMemo(() => {
     if (!usersWithRoles?.length) return [];
@@ -218,7 +226,6 @@ export const EditCustomRoleDialog = ({
       (email) => !alreadyExistingUsers.includes(email),
     );
 
-    // TODO: Do something with emails that are not yet instance members
     const users = usersWithRoles?.reduce(
       (prev, curr) => {
         if (usersToAdd?.includes(curr.email)) {
@@ -330,10 +337,13 @@ export const EditCustomRoleDialog = ({
       fullWidth
       onClose={() => onClose?.()}
       PaperProps={{
+        ref: containerRef,
         sx: {
           maxWidth: 960,
           width: 960,
-          minHeight: 800,
+          minHeight: minHeight,
+          maxHeight: 'calc(100% - 40px)',
+          my: 2.5,
         },
       }}
     >
