@@ -144,11 +144,6 @@ export const ResourceSelector = ({
       onKeyDown={(evt) => {
         evt.stopPropagation();
       }}
-      slotProps={{
-        paper: {
-          elevation: 8,
-        },
-      }}
     />
   );
 };
