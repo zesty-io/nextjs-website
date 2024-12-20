@@ -120,7 +120,7 @@ export const BaseRoles = ({ baseRoles }: BaseRolesProps) => {
               p: 2,
               border: (theme) => `1px solid ${theme.palette.border}`,
               borderRadius: 2,
-              mb: index + 1 < baseRoles?.length ? 1 : 0,
+              mb: index + 1 < baseRoles?.length ? 2 : 0,
             }}
           >
             <ListItemAvatar>
@@ -137,6 +137,9 @@ export const BaseRoles = ({ baseRoles }: BaseRolesProps) => {
                   {BASE_ROLES_CONFIG[role.name.toLowerCase()]?.description}
                 </Typography>
               }
+              sx={{
+                my: 0,
+              }}
             />
           </ListItem>
         ))}

@@ -61,7 +61,7 @@ export const CustomRoles = forwardRef(
                     p: 2,
                     border: (theme) => `1px solid ${theme.palette.border}`,
                     borderRadius: 2,
-                    mb: index + 1 < customRoles?.length ? 1 : 0,
+                    mb: index + 1 < customRoles?.length ? 2 : 0,
                   }}
                   onClick={() => {
                     setZUIDToEdit(role.ZUID);
@@ -88,15 +88,19 @@ export const CustomRoles = forwardRef(
                         {role.description || ''}
                       </Typography>
                     }
+                    sx={{
+                      my: 0,
+                    }}
                   />
                   <IconButton
+                    size="small"
                     onClick={(evt) => {
                       evt.stopPropagation();
                       setAnchorEl(evt.currentTarget);
                       setActiveZUID(role.ZUID);
                     }}
                   >
-                    <MoreHorizRounded />
+                    <MoreHorizRounded fontSize="small" />
                   </IconButton>
                 </ListItemButton>
                 <Menu

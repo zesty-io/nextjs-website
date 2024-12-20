@@ -120,7 +120,7 @@ export const Roles = ({ isLoading, hasPermission }: RolesProps) => {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <Search color="disabled" />
+                    <Search />
                   </InputAdornment>
                 ),
               }}

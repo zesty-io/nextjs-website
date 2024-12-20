@@ -74,6 +74,7 @@ export const NoPermission = ({ users }) => {
         src={shield?.src}
         alt={shield?.title}
         loading="lazy"
+        alignSelf="center"
       />
     </Stack>
   );

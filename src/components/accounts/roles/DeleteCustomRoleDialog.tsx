@@ -47,7 +47,9 @@ export const DeleteCustomRoleDialog = ({
       value: role.ZUID,
     }));
 
-    return [...customRolesOpts, ...baseRolesOpts];
+    return [...customRolesOpts, ...baseRolesOpts]?.sort(
+      (a, b) => a.label?.localeCompare(b.label),
+    );
   }, [customRoles, baseRoles]);
 
   const defaultBaseRole = baseRoles?.find(

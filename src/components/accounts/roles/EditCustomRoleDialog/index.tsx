@@ -1,4 +1,4 @@
-import { useMemo, useState, useReducer, useEffect } from 'react';
+import { useMemo, useState, useReducer, useEffect, useRef } from 'react';
 import {
   Typography,
   Avatar,
@@ -19,6 +19,7 @@ import {
   InfoRounded,
   RuleRounded,
   GroupsRounded,
+  SaveRounded,
 } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 
@@ -74,6 +75,8 @@ export const EditCustomRoleDialog = ({
     updateUserRole,
     getUsersWithRoles,
   } = useRoles((state) => state);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [minHeight, setMinHeight] = useState(0);
   const [activeTab, setActiveTab] = useState<TabName>(tabToOpen);
   const [isSaving, setIsSaving] = useState(false);
   const [fieldErrors, updateFieldErrors] = useReducer(
@@ -101,6 +104,12 @@ export const EditCustomRoleDialog = ({
       usersTab: [],
     },
   );
+
+  useEffect(() => {
+    setTimeout(() => {
+      setMinHeight(containerRef.current?.clientHeight);
+    });
+  }, []);
 
   const roleUsers = useMemo(() => {
     if (!usersWithRoles?.length) return [];
@@ -218,7 +227,6 @@ export const EditCustomRoleDialog = ({
       (email) => !alreadyExistingUsers.includes(email),
     );
 
-    // TODO: Do something with emails that are not yet instance members
     const users = usersWithRoles?.reduce(
       (prev, curr) => {
         if (usersToAdd?.includes(curr.email)) {
@@ -318,6 +326,8 @@ export const EditCustomRoleDialog = ({
           setActiveTab('permissions');
         } else if (!!fieldErrors?.usersTab?.length) {
           setActiveTab('users');
+        } else {
+          onClose();
         }
       });
   };
@@ -328,10 +338,13 @@ export const EditCustomRoleDialog = ({
       fullWidth
       onClose={() => onClose?.()}
       PaperProps={{
+        ref: containerRef,
         sx: {
           maxWidth: 960,
           width: 960,
-          minHeight: 800,
+          minHeight: minHeight,
+          maxHeight: 'calc(100% - 40px)',
+          my: 2.5,
         },
       }}
     >
@@ -348,7 +361,7 @@ export const EditCustomRoleDialog = ({
             <Avatar sx={{ bgcolor: 'blue.100' }}>
               <LocalPoliceOutlined color="info" />
             </Avatar>
-            <Box display="inline">
+            <Stack>
               <Typography variant="h5" fontWeight={700}>
                 Edit {roleData?.name}
               </Typography>
@@ -360,10 +373,10 @@ export const EditCustomRoleDialog = ({
                 Edit your custom role that can have granular permissions applied
                 to it
               </Typography>
-            </Box>
+            </Stack>
           </Stack>
           <IconButton size="small" onClick={() => onClose?.()}>
-            <Close />
+            <Close fontSize="small" />
           </IconButton>
         </Stack>
         <Tabs
@@ -489,6 +502,7 @@ export const EditCustomRoleDialog = ({
           variant="contained"
           color="primary"
           onClick={handleSave}
+          startIcon={<SaveRounded />}
         >
           Save
         </LoadingButton>
