@@ -9,6 +9,7 @@ import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 // import SettingsIcon from '@mui/icons-material/Settings';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
+import AccountBoxRoundedIcon from '@mui/icons-material/AccountBoxRounded';
 
 export const instanceTabs = [
   {
@@ -21,49 +22,55 @@ export const instanceTabs = [
     icon: <PeopleIcon fontSize="medium" />,
     filename: 'users',
     label: 'Users',
-    sort: 1,
+    sort: 2,
+  },
+  {
+    icon: <AccountBoxRoundedIcon fontSize="medium" />,
+    filename: 'roles',
+    label: 'Roles & Permissions',
+    sort: 3,
   },
   {
     icon: <GroupsIcon fontSize="medium" />,
     filename: 'teams',
-    label: 'Teams',
-    sort: 2,
+    label: 'Team Access',
+    sort: 4,
   },
   {
     icon: <LanguageIcon fontSize="medium" />,
     filename: 'domains',
     label: 'Domains',
-    sort: 3,
+    sort: 5,
   },
   {
     icon: <LeaderboardIcon fontSize="medium" />,
     filename: 'usage',
     label: 'Usage',
-    sort: 4,
+    sort: 6,
   },
   {
     icon: <TranslateIcon fontSize="medium" />,
     filename: 'locales',
     label: 'Locales',
-    sort: 5,
+    sort: 7,
   },
   {
     icon: <ApiIcon fontSize="medium" />,
     filename: 'apis',
-    label: 'APIs & Tokens',
-    sort: 6,
+    label: 'API Tokens',
+    sort: 8,
   },
   {
     icon: <WebhookIcon fontSize="medium" />,
     filename: 'webhooks',
     label: 'Webhooks',
-    sort: 7,
+    sort: 9,
   },
   {
     icon: <SupportAgentIcon fontSize="medium" />,
     filename: 'support',
     label: 'Support',
-    sort: 8,
+    sort: 10,
   },
   // comment out for now
   // {
@@ -76,6 +83,6 @@ export const instanceTabs = [
     icon: <CreditCardIcon fontSize="medium" />,
     filename: 'settings',
     label: 'Settings',
-    sort: 7,
+    sort: 11,
   },
 ];

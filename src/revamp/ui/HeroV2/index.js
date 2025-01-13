@@ -10,9 +10,10 @@ import Logos from './Logos';
 const media =
     'https://kfg6bckb.media.zestyio.com/Zesty-io-2023-Homepage-Graphic.webp',
   phoenixSuns = 'https://kfg6bckb.media.zestyio.com/phoenixSunsHero.svg',
-  rocketLeague = 'https://kfg6bckb.media.zestyio.com/rocketLeagueHero.svg',
   singlife = 'https://kfg6bckb.media.zestyio.com/singlifeHero.svg',
-  sony = 'https://kfg6bckb.media.zestyio.com/sonyHero.svg';
+  sony = 'https://kfg6bckb.media.zestyio.com/sonyHero.svg',
+  wattpad = 'https://kfg6bckb.media.zestyio.com/wattpadHero.png?height=32',
+  tsa = 'https://kfg6bckb.media.zestyio.com/theSalvationArmyHero.png?height=32';
 
 const logos = [
   {
@@ -23,18 +24,25 @@ const logos = [
     alt: generateAlt('Sony'),
   },
   {
-    src: rocketLeague,
-    width: 88.35,
-    height: 32,
-    title: 'Rocket League',
-    alt: generateAlt('Rocket League'),
-  },
-  {
     src: singlife,
     width: 102.12,
     height: 32,
     title: 'Singlife',
     alt: generateAlt('Singlife'),
+  },
+  {
+    src: wattpad,
+    width: 'auto',
+    height: 32,
+    title: 'Wattpad',
+    alt: generateAlt('Wattpad'),
+  },
+  {
+    src: tsa,
+    width: 'auto',
+    height: 32,
+    title: 'The Salvation Army',
+    alt: generateAlt('The Salvation Army'),
   },
   {
     src: phoenixSuns,
